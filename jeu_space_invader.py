@@ -20,13 +20,19 @@ fenetre = Tk()
 fenetre.title('LE JEU DU SPACE INVADERS')
 fenetre.geometry('1400x720')
 
-canevas=Canvas(fenetre,width=1000,height=600,bg='black')
-canevas.grid(row=1,column=0,padx=50,pady=50)
 
+
+canevas=Canvas(fenetre,width=1000,height=600,bg='black')
 boutonQuitter=Button(fenetre,text='Quitter le jeu',fg='red',command=fenetre.destroy)
-boutonQuitter.grid(row=1,column=2)
 boutonRejouer=Button(fenetre,text='Rejouer',fg='red',command=fenetre.destroy) #faire une fct rejouer
-boutonRejouer.grid(row=1,column=2)
+score=Label(fenetre,text='Score : ')
+vies=Label(fenetre,text='Vies : ')
+
+canevas.grid(row=2,column=1,sticky="nesw")
+boutonQuitter.grid(row=2,column=2)
+boutonRejouer.grid(row=2,column=3)
+score.grid(row=1,column=1,sticky="w")
+vies.grid(row=1,column=1,sticky="e")
 
 
 
