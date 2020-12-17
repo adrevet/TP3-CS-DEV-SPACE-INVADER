@@ -10,7 +10,7 @@ Statut:
 
 """ on importe les ressources nécéssaires : """
 import random, math
-from tkinter import Tk, PhotoImage, Canvas, Button, Label, StringVar, Entry
+from tkinter import Tk, PhotoImage, Canvas, Button, Label, StringVar, Entry, Frame
 
 """ on créé la fenêtre et on paramètre un canvas : """
 
@@ -22,6 +22,7 @@ fenetre.geometry('1280x720')
 
 canevas=Canvas(fenetre,width=1000,height=600,bg='black')
 canevas.pack(side="left",padx=10,pady=10)
+
 
 boutonQuitter=Button(fenetre,text='Quitter le jeu',fg='red',command=fenetre.destroy)
 boutonQuitter.pack(side='right',padx=90)
