@@ -18,16 +18,16 @@ from tkinter import Tk, PhotoImage, Canvas, Button, Label, StringVar, Entry, Fra
 """ fenetre principale + création canevas : """
 fenetre = Tk()
 fenetre.title('LE JEU DU SPACE INVADERS')
-fenetre.geometry('1280x720')
+fenetre.geometry('1400x720')
 
 canevas=Canvas(fenetre,width=1000,height=600,bg='black')
-canevas.pack(side="left",padx=10,pady=10)
-
+canevas.grid(row=1,column=0,padx=50,pady=50)
 
 boutonQuitter=Button(fenetre,text='Quitter le jeu',fg='red',command=fenetre.destroy)
-boutonQuitter.pack(side='right',padx=90)
+boutonQuitter.grid(row=1,column=2)
 boutonRejouer=Button(fenetre,text='Rejouer',fg='red',command=fenetre.destroy) #faire une fct rejouer
-boutonRejouer.pack(side='right')
+boutonRejouer.grid(row=1,column=2)
+
 
 
 fenetre.mainloop()
