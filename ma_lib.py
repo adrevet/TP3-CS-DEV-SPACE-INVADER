@@ -8,6 +8,14 @@ Date: 17/12/2020
 Statut:
 """
 
+
+""" Création des aliens """
+def CreationAliens(X,Y,r,canevas,DX,LARGEUR,fenetre):
+    alien = canevas.create_rectangle(X-r,Y-r,X+r,Y+r,width = 0,fill = "red") #on crée l'alien
+    deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre) 
+    return alien
+
+
 """ Fonction qui décrit le deplacement de l'alien en horizontal : """
 def deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre):
     
@@ -24,43 +32,45 @@ def deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre):
     canevas.coords(alien,X-r,Y-r,X+r,Y+r)
     fenetre.after(20,lambda:deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre))
 
+""" Création des ilots """
+def CreationIlots (X,Y,Largeur,Hauteur,canevas):
+    Ilots = canevas.create_rectangle(X+Largeur,Y+Largeur,X-Largeur,Y-Hauteur, width = 0, fill = "grey")
+    return Ilots
+
 """ Gestion de l'évènement Appui sur une touche du clavier """    
 def clavier(event,PosX,canevas,vaisseau,PosY):
     touche = event.keysym
     print(touche)
     DX=0
     (x1,y1,x2,y2)=canevas.bbox(vaisseau)
-    if touche == "d" and x2 == 991:
+    if touche == "Right" and x2 == 991:
         DX = 0
-    elif touche == "d": #déplacement à droite
+    elif touche == "Right": #déplacement à droite
         DX = 10
     
-    if touche == "q" and x1 == 9:
+    if touche == "Left" and x1 == 9:
         DX = 0
-    elif touche == "q": #déplacement à gauche
+    elif touche == "Left": #déplacement à gauche
         DX = -10   
-    if touche == "l":
-        Laser()
+#    if touche == "space":
+#        Laser()
     canevas.move(vaisseau,DX,0)
     
+
 """ Définition du laser """
-#def Laser(PosX,PosY):
-#    x = PosX
+#def Laser(DX,PosY,canevas,Laser):
+#    x = DX
 #    y = PosY
 #    Laser = canevas.create_rectangle(x,y,image = Laser)
 #    Tir()
-  
+#  
 """ Définition du tir """
-#def Tir(PosX,PosY,Laser,touche,Largeur,Long):
-#    Long = 15
-#    Largeur = 5
+#def Tir(PosX,Laser,touche,PosBas,canevas,fenetre):
 #    canevas.unbind('l')
-#    x = PosX
-#    y = PosY
-#    dx = 0
-#    dy = -10
-#    if y < 0:
+#    if PosBas <= 0:
 #        canevas.bind('l',clavier)
 #        canevas.delete(Laser)
 #    else:
-#        canevas.move(Laser,dx,dy)
+#        PosBas -= 10
+#        canevas.coords(Laser,PosX,PosBas)
+#        fenetre.after(50,Tir)
