@@ -21,7 +21,7 @@ Lien github :
 #Importation des bibliothèques nécessaires
 import random, math
 from tkinter import Tk, PhotoImage, Canvas, Button, Label, StringVar, Entry, Frame, Menu, NW
-from ma_lib import clavier, CreationAliens, CreationIlots
+from ma_lib import clavier, CreationAliens, CreationIlots #Laser
 from random import uniform
 
 
@@ -44,12 +44,12 @@ boutonRejouer = Button(fenetre, text = 'Rejouer', fg = 'red',
 
 """ Affichage du score """
 x = StringVar
-##x.set(score()) #Créer une fonction qui calcule le score
+##x.set("Score : "+str(score)) #Créer une fonction qui calcule le score
 score = Label(fenetre,textvariable = x,fg = 'black',bg = 'white')
 
 """ Affichage du nombre de vies """
 y = StringVar
-##y.set(vies()) #Créer une fonction qui calcule le nombre de vie
+##y.set("Nombre de vies : "+str(vies)) #Créer une fonction qui calcule le nombre de vie
 vies = Label(fenetre,textvariable = y, fg = 'black', bg = 'white')
 
 
@@ -75,19 +75,20 @@ fenetre.config(menu = menubar)
 
 """ Création alien : """
 alien = []
-X = LARGEUR/2 #position intiale de l'alien
-Y = HAUTEUR/6 #position intiale de l'alien
-r = 25
-angle= random.uniform(0,2*math.pi) #direction initiale aléatoire
-vitesse = uniform(1.8,2)*5
-DX = vitesse*math.cos(angle)
-for i in range (0,10):
-    alien.append(CreationAliens(X,Y,r,canevas,DX,LARGEUR,fenetre))
-    if X == 900:
-        X = 400
-        Y += 100
-    else:
-        X += 200
+#X = LARGEUR/2 #position intiale de l'alien
+#Y = HAUTEUR/6 #position intiale de l'alien
+#r = 25
+#angle= random.uniform(0,2*math.pi) #direction initiale aléatoire
+#vitesse = uniform(1.8,2)*5
+#DX = vitesse*math.cos(angle)
+#DY = 5
+#for i in range (0,10):
+#    alien.append(CreationAliens(X,Y,DX,DY,LARGEUR,HAUTEUR,r,canevas,alien,fenetre))
+#    if X == 900:
+#        X = 400
+#        Y += 100
+#    else:
+#        X += 200
 
 """ Création vaisseau : """
 PosX = 500 #position intiale du vaisseau
