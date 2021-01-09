@@ -1,5 +1,3 @@
-""" lien Git: https://github.com/adrevet/TP3-CS-DEV-SPACE-INVADERS.git  """
-
 """
 Date: 17/12/2020
 
