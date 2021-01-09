@@ -41,11 +41,11 @@ def deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre):
     
     if X+r+DX > LARGEUR: #rebond à droite
         X = 2*(LARGEUR-r)-X
-        DX = -DX
+        DX = DX
         
     if X-r+DX < 0: #rebond à gauche
         X = 2*r-X
-        DX=-DX
+        DX= -DX
         
     X = X+DX
     
@@ -73,15 +73,15 @@ def clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre):
     elif touche == "Left": #déplacement à gauche
         DX = -10   
     if touche == "space":
-        Laser(DX,PosY,canevas,Laser,PosX,PosBas,fenetre)
+        Laser(x1,y1,canevas,PosX,PosBas,fenetre)
     canevas.move(vaisseau,DX,0)
     
 
 """ Définition du laser """
-def Laser(DX,PosY,canevas,Laser,PosX,PosBas,fenetre):
+def Laser(DX,PosY,canevas,PosX,PosBas,fenetre):
     x = DX
     y = PosY
-    Laser = canevas.create_rectangle(x,y,width = 0, fill = 'yellow')
+    Laser = canevas.create_rectangle(x-3,y,x+3,y-5, fill = 'yellow', stroke = None)
     Tir(PosX,Laser,PosBas,canevas,fenetre)
   
 """ Définition du tir """
@@ -92,5 +92,5 @@ def Tir(PosX,Laser,PosBas,canevas,fenetre):
         canevas.delete(Laser)
     else:
         PosBas -= 10
-        canevas.coords(Laser,PosX,PosBas)
-        fenetre.after(50,Tir)
+        canevas.move(Laser,0,-10)
+        fenetre.after(50,Tir,PosX,Laser,PosBas,canevas,fenetre)

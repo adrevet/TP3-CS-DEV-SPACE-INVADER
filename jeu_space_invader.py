@@ -11,8 +11,7 @@ Que fait ce programme : Jeu Space Invaders
 Qui l'a fait : Alexandre Drevet
 Quand a-t-il été réalisé : //2021
 Que reste-t-il à faire : Faire une fonction rejouer, faire en sorte que 
-lorsqu'un alien touche un bord ils reviennent tous, regarder les fonctions laser
-et tir pour les faire marcher
+lorsqu'un alien touche un bord ils reviennent tous
 Lien github : 
 """
 
