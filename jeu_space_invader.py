@@ -21,7 +21,7 @@ Lien github :
 #Importation des bibliothèques nécessaires
 import random, math
 from tkinter import Tk, PhotoImage, Canvas, Button, Label, StringVar, Entry, Frame, Menu, NW
-from ma_lib import clavier, CreationAliens, CreationIlots #Laser
+from ma_lib import clavier, CreationAliens, CreationIlots, Laser
 from random import uniform
 
 
@@ -40,7 +40,7 @@ boutonQuitter = Button(fenetre, text = 'Quitter le jeu', fg ='red',
 boutonRejouer = Button(fenetre, text = 'Rejouer', fg = 'red',
                        command = fenetre.destroy) #faire une fct rejouer
 
-#PosBas = 600
+PosBas = 600
 
 """ Affichage du score """
 x = StringVar
@@ -75,20 +75,20 @@ fenetre.config(menu = menubar)
 
 """ Création alien : """
 alien = []
-#X = LARGEUR/2 #position intiale de l'alien
-#Y = HAUTEUR/6 #position intiale de l'alien
-#r = 25
-#angle= random.uniform(0,2*math.pi) #direction initiale aléatoire
-#vitesse = uniform(1.8,2)*5
-#DX = vitesse*math.cos(angle)
-#DY = 5
-#for i in range (0,10):
-#    alien.append(CreationAliens(X,Y,DX,DY,LARGEUR,HAUTEUR,r,canevas,alien,fenetre))
-#    if X == 900:
-#        X = 400
-#        Y += 100
-#    else:
-#        X += 200
+X = LARGEUR/2 #position intiale de l'alien
+Y = HAUTEUR/6 #position intiale de l'alien
+r = 25
+angle= random.uniform(0,2*math.pi) #direction initiale aléatoire
+vitesse = uniform(1.8,2)*5
+DX = vitesse*math.cos(angle)
+DY = 5
+for i in range (0,10):
+    alien.append(CreationAliens(X,Y,DX,LARGEUR,r,canevas,alien,fenetre))
+    if X == 900:
+        X = 400
+        Y += 100
+    else:
+        X += 200
 
 """ Création vaisseau : """
 PosX = 500 #position intiale du vaisseau
@@ -96,7 +96,7 @@ PosY = 550 #position intiale du vaisseau
 vaisseau = canevas.create_rectangle(PosX-10,PosY-10,PosX+10,PosY+10,width = 0,
                                     fill = "green") #on créé le vaisseau
 canevas.focus_set()
-canevas.bind('<Key>',lambda event:clavier(event,PosX,canevas,vaisseau,PosY))
+canevas.bind('<Key>',lambda event:clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre))
 
 """ Création Ilots """
 Ilots = []
@@ -113,8 +113,7 @@ for i in range (0,3):
         X += 300
 
 """ Image du laser """
-#Laser = PhotoImage (file = 'Laser.gif')
-#Laser(DX, PosY, canevas, fenetre)
+lambda:Laser(DX,PosY,canevas,Laser,PosX,PosBas,fenetre)
 
 
 

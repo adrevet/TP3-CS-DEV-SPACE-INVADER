@@ -3,21 +3,21 @@
 """
 Date: 17/12/2020
 
-@author: EL IDRISSI Moussa / DREVET Alexandre 3ETI
+@author: DREVET Alexandre 3ETI
 
 Statut:
 """
 
 
 """ Création des aliens """
-def CreationAliens(X,Y,DX,DY,LARGEUR,HAUTEUR,r,canevas,alien,fenetre):
+def CreationAliens(X,Y,DX,LARGEUR,r,canevas,alien,fenetre):
     alien = canevas.create_rectangle(X-r,Y-r,X+r,Y+r,width = 0,fill = "red") #on crée l'alien
-    deplacement(X,Y,DX,DY,LARGEUR,HAUTEUR,r,canevas,alien,fenetre) 
+    deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre) 
     return alien
 
 
 """ Fonction qui décrit le deplacement de l'alien en horizontal : """
-def deplacement(X,Y,DX,DY,LARGEUR,HAUTEUR,r,canevas,alien,fenetre):
+def deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre):
 #    TailleAlien = 40
 #    DY = 5
 #    XP = canevas.coords(alien[0][0])[0]
@@ -60,9 +60,9 @@ def CreationIlots (X,Y,Largeur,Hauteur,canevas):
     return Ilots
 
 """ Gestion de l'évènement Appui sur une touche du clavier """    
-def clavier(event,PosX,canevas,vaisseau,PosY):
+def clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre):
     touche = event.keysym
-    print(touche)
+#    print(touche)
     DX=0
     (x1,y1,x2,y2)=canevas.bbox(vaisseau)
     if touche == "Right" and x2 == 991:
@@ -74,25 +74,25 @@ def clavier(event,PosX,canevas,vaisseau,PosY):
         DX = 0
     elif touche == "Left": #déplacement à gauche
         DX = -10   
-#    if touche == "space":
-#        Laser()
+    if touche == "space":
+        Laser(DX,PosY,canevas,Laser,PosX,PosBas,fenetre)
     canevas.move(vaisseau,DX,0)
     
 
 """ Définition du laser """
-#def Laser(DX,PosY,canevas,Laser):
-#    x = DX
-#    y = PosY
-#    Laser = canevas.create_rectangle(x,y,image = Laser)
-#    Tir()
-#  
+def Laser(DX,PosY,canevas,Laser,PosX,PosBas,fenetre):
+    x = DX
+    y = PosY
+    Laser = canevas.create_rectangle(x,y,width = 0, fill = 'yellow')
+    Tir(PosX,Laser,PosBas,canevas,fenetre)
+  
 """ Définition du tir """
-#def Tir(PosX,Laser,touche,PosBas,canevas,fenetre):
-#    canevas.unbind('l')
-#    if PosBas <= 0:
-#        canevas.bind('l',clavier)
-#        canevas.delete(Laser)
-#    else:
-#        PosBas -= 10
-#        canevas.coords(Laser,PosX,PosBas)
-#        fenetre.after(50,Tir)
+def Tir(PosX,Laser,PosBas,canevas,fenetre):
+    canevas.unbind('space')
+    if PosBas <= 0:
+        canevas.bind('space',clavier)
+        canevas.delete(Laser)
+    else:
+        PosBas -= 10
+        canevas.coords(Laser,PosX,PosBas)
+        fenetre.after(50,Tir)
