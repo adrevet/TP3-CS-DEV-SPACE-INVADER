@@ -110,7 +110,7 @@ for i in range (0,3):
         X += 300
 
 """ Image du laser """
-lambda:Laser(DX,PosY,canevas,Laser,PosX,PosBas,fenetre)
+lambda:Laser(DX,PosY,canevas,PosX,PosBas,fenetre)
 
 
 
