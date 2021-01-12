@@ -80,7 +80,7 @@ angle= random.uniform(0,2*math.pi) #direction initiale aléatoire
 vitesse = uniform(1.8,2)*5
 DX = vitesse*math.cos(angle)
 DY = 5
-for i in range (0,10):
+for i in range (0,9):
     alien.append(CreationAliens(X,Y,DX,LARGEUR,r,canevas,alien,fenetre))
     if X == 900:
         X = 400
