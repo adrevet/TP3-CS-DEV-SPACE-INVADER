@@ -8,6 +8,9 @@ Statut:
 
 
 """ Création des aliens """
+DX_POS = 5
+DX_NEG = -5
+DX_GLOB = DX_POS
 def CreationAliens(X,Y,DX,LARGEUR,r,canevas,alien,fenetre):
     alien = canevas.create_rectangle(X-r,Y-r,X+r,Y+r,width = 0,fill = "red") #on crée l'alien
     deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre) 
@@ -16,15 +19,16 @@ def CreationAliens(X,Y,DX,LARGEUR,r,canevas,alien,fenetre):
 
 """ Fonction qui décrit le deplacement de l'alien en horizontal : """
 def deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre):
-    if X+r+DX > LARGEUR: #rebond à droite
+    global DX_GLOB, DX_NEG, DX_POS
+    if X+r+DX_GLOB > LARGEUR: #rebond à droite
         X = 2*(LARGEUR-r)-X
-        DX = -100
+        DX_GLOB = DX_NEG
         
-    if X-r+DX < 0: #rebond à gauche
+    if X-r+DX_GLOB < 0: #rebond à gauche
         X = 2*r-X
-        DX= 100
+        DX_GLOB = DX_POS
         
-    X = X+DX
+    X = X+DX_GLOB
     
     canevas.coords(alien,X-r,Y-r,X+r,Y+r)
     fenetre.after(20,lambda:deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre))
