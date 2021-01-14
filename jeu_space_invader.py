@@ -8,18 +8,25 @@ Date: 17/12/2020
 # Header
 """
 Que fait ce programme : Jeu Space Invaders
+
 Qui l'a fait : Alexandre Drevet
-Quand a-t-il été réalisé : //2021
+
+Quand a-t-il été réalisé : 17/12/2020 - 17/01/2021
+
 Que reste-t-il à faire : Faire une fonction rejouer, faire une fonction qui
-fait disparaître les deux objets (laser et alien) lorsqu'ils entrent en 
-colision, permettre à l'alien de descendre lorsqu'il a fait un aller-retour
-Lien github : 
+fait disparaître les deux objets (laser et alien ou laser et ilots) lorsqu'ils
+entrent en colision, faire un EnnemiBonus, permettre aux aliens de tirer en 
+direction du vaisseau
+Je pourrais également amélioré l'interface du jeu et le rendre plus complet 
+avec plus de temps
+
+Lien github : https://github.com/adrevet/TP3-CS-DEV-SPACE-INVADERS.git
 """
 
 #Importation des bibliothèques nécessaires
 import random, math
-from tkinter import Tk, PhotoImage, Canvas, Button, Label, StringVar, Entry, Frame, Menu, NW
-from ma_lib import clavier, CreationAliens, CreationIlots, Laser
+from tkinter import Tk, PhotoImage, Canvas, Button, Label, StringVar, Entry, Menu, NW
+from ma_lib import Clavier, CreationAliens, CreationIlots, Laser, Apropos
 from random import uniform
 
 
@@ -33,21 +40,21 @@ canevas = Canvas(fenetre, width = LARGEUR, height = HAUTEUR, bg = 'white')
 Fond = PhotoImage (file = 'terre.gif')
 canevas.create_image(0, 0, anchor = NW, image = Fond)
 
-boutonQuitter = Button(fenetre, text = 'Quitter le jeu', fg ='red',
+boutonQuitter = Button(fenetre, text = 'Quitter le jeu', fg ='blue',
                        command = fenetre.destroy)
-boutonRejouer = Button(fenetre, text = 'Rejouer', fg = 'red',
+boutonRejouer = Button(fenetre, text = 'Rejouer', fg = 'blue',
                        command = fenetre.destroy) #faire une fct rejouer
 
 PosBas = 600
 
 """ Affichage du score """
 x = StringVar
-##x.set("Score : "+str(score)) #Créer une fonction qui calcule le score
-score = Label(fenetre,textvariable = x,fg = 'black',bg = 'white')
+#x.set("Score : "+str(score)) #Créer une fonction qui calcule le score
+score = Label(fenetre, textvariable = x, fg = 'black', bg = 'white')
 
 """ Affichage du nombre de vies """
 y = StringVar
-##y.set("Nombre de vies : "+str(vies)) #Créer une fonction qui calcule le nombre de vie
+#y.set("Nombre de vies : "+str(vies)) #Créer une fonction qui calcule le nombre de vie
 vies = Label(fenetre,textvariable = y, fg = 'black', bg = 'white')
 
 
@@ -61,10 +68,12 @@ vies.grid(row = 1, column = 1, sticky = "e")
 """ Menu option avec différentes options : """
 menubar = Menu(fenetre)
 menuoption = Menu(menubar, tearoff = 0)
+menuapropos = Menu(menubar, tearoff = 1)
 menuoption.add_command(label = "Rejouer", command = fenetre.destroy) #faire une fct rejouer
 menuoption.add_command(label = "Quitter", command = fenetre.destroy) # boutton pour arreter de jouer 
 menubar.add_cascade(label = "Option", menu = menuoption)
-menubar.add_cascade(label = "A propos")
+menubar.add_cascade(label = "Aide", menu = menuapropos)
+menuapropos.add_command(label = "A propos", command = Apropos)
 
 
 """ Affichage menu : """
@@ -72,16 +81,17 @@ fenetre.config(menu = menubar)
 
 
 """ Création alien : """
+#Alien = None
 alien = []
+TirAlien = []
 X = LARGEUR/2 #position intiale de l'alien
 Y = HAUTEUR/6 #position intiale de l'alien
 r = 25
 angle= random.uniform(0,2*math.pi) #direction initiale aléatoire
 vitesse = uniform(1.8,2)*5
 DX = vitesse*math.cos(angle)
-DY = 5
 for i in range (0,9):
-    alien.append(CreationAliens(X,Y,DX,LARGEUR,r,canevas,alien,fenetre))
+    alien.append(CreationAliens(X,Y,LARGEUR,r,canevas,alien,fenetre))
     if X == 900:
         X = 400
         Y += 100
@@ -91,15 +101,15 @@ for i in range (0,9):
 """ Création vaisseau : """
 PosX = 500 #position intiale du vaisseau
 PosY = 550 #position intiale du vaisseau
-vaisseau = canevas.create_rectangle(PosX-10,PosY-10,PosX+10,PosY+10,width = 0,
-                                    fill = "green") #on créé le vaisseau
+Vaisseau = PhotoImage (file = 'vaisseau.gif')
+vaisseau = canevas.create_image(PosX-10, PosY-10, image = Vaisseau) #on créé le vaisseau
 canevas.focus_set()
-canevas.bind('<Key>',lambda event:clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre))
+canevas.bind('<Key>',lambda event:Clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre))
 
 """ Création Ilots """
 Ilots = []
-X = LARGEUR/6
-Y = HAUTEUR/1.5
+X = LARGEUR/6 #position initiale de l'ilot
+Y = HAUTEUR/1.5 #position initiale de l'ilot
 Largeur = 60
 Hauteur = 30
 for i in range (0,3):
@@ -114,9 +124,4 @@ for i in range (0,3):
 lambda:Laser(DX,PosY,canevas,PosX,PosBas,fenetre)
 
 
-
-
-
-
 fenetre.mainloop()
-

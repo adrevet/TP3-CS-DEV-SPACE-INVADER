@@ -3,47 +3,58 @@ Date: 17/12/2020
 
 @author: DREVET Alexandre 3ETI
 
-Statut:
 """
-
+from tkinter import PhotoImage, messagebox
 
 """ Création des aliens """
-DX_POS = 5
-DX_NEG = -5
+DX_POS = 2
+DX_NEG = -2
 DX_GLOB = DX_POS
-def CreationAliens(X,Y,DX,LARGEUR,r,canevas,alien,fenetre):
-    alien = canevas.create_rectangle(X-r,Y-r,X+r,Y+r,width = 0,fill = "red") #on crée l'alien
-    deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre) 
+DY_POS = 0.01
+DY_NEG = 0
+DY_GLOB = DY_POS
+def CreationAliens(X,Y,LARGEUR,r,canevas,alien,fenetre):
+#    global Alien
+#    Alien = PhotoImage (file = 'alien.gif')
+    alien = canevas.create_rectangle(X-r, Y-r, X+r, Y+r, width = 0, 
+                                     fill = 'red') #on crée l'alien
+    deplacement(X,Y,LARGEUR,r,canevas,alien,fenetre) 
+#    CreationTirAlien(alien,canevas,TirAlien,X,Y,fenetre)
     return alien
 
 
 """ Fonction qui décrit le deplacement de l'alien en horizontal : """
-def deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre):
-    global DX_GLOB, DX_NEG, DX_POS
+def deplacement(X,Y,LARGEUR,r,canevas,alien,fenetre):
+    global DX_GLOB, DX_NEG, DX_POS, DY_POS, DY_NEG, DY_GLOB
     if X+r+DX_GLOB > LARGEUR: #rebond à droite
         X = 2*(LARGEUR-r)-X
         DX_GLOB = DX_NEG
+        DY_GLOB = DY_NEG
         
     if X-r+DX_GLOB < 0: #rebond à gauche
         X = 2*r-X
         DX_GLOB = DX_POS
+        DY_GLOB = DY_POS
         
-    X = X+DX_GLOB
+    X = X + DX_GLOB
+    Y = Y + DY_GLOB
     
-    canevas.coords(alien,X-r,Y-r,X+r,Y+r)
-    fenetre.after(20,lambda:deplacement(X,Y,DX,LARGEUR,r,canevas,alien,fenetre))
+    
+    canevas.coords(alien, X-r, Y-r, X+r, Y+r)
+    fenetre.after(30,lambda:deplacement(X,Y,LARGEUR,r,canevas,alien,fenetre))
 
 """ Création des ilots """
 def CreationIlots (X,Y,Largeur,Hauteur,canevas):
-    Ilots = canevas.create_rectangle(X+Largeur,Y+Largeur,X-Largeur,Y-Hauteur, width = 0, fill = "grey")
+    Ilots = canevas.create_rectangle(X+Largeur, Y+Largeur, X-Largeur, Y-Hauteur,
+                                     width = 0, fill = "grey")
     return Ilots
 
 """ Gestion de l'évènement Appui sur une touche du clavier """    
-def clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre):
+def Clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre):
     touche = event.keysym
 #    print(touche)
-    DX=0
-    (x1,y1,x2,y2)=canevas.bbox(vaisseau)
+    DX = 0
+    (x1, y1, x2, y2) = canevas.bbox(vaisseau)
     if touche == "Right" and x2 == 991:
         DX = 0
     elif touche == "Right": #déplacement à droite
@@ -55,23 +66,59 @@ def clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre):
         DX = -10   
     if touche == "space":
         Laser(x1,y1,canevas,PosX,PosBas,fenetre)
-    canevas.move(vaisseau,DX,0)
+    canevas.move(vaisseau, DX, 0)
     
 
 """ Définition du laser """
 def Laser(DX,PosY,canevas,PosX,PosBas,fenetre):
     x = DX
     y = PosY
-    Laser = canevas.create_rectangle(x-3,y,x+3,y-5, fill = 'yellow', stroke = None)
+    Laser = canevas.create_rectangle(x-3, y, x+3, y-5, fill = 'yellow', 
+                                     stroke = None)
     Tir(PosX,Laser,PosBas,canevas,fenetre)
   
 """ Définition du tir """
 def Tir(PosX,Laser,PosBas,canevas,fenetre):
     canevas.unbind('space')
     if PosBas <= 0:
-        canevas.bind('space',clavier)
+        canevas.bind('space', Clavier)
         canevas.delete(Laser)
     else:
         PosBas -= 10
-        canevas.move(Laser,0,-10)
+        canevas.move(Laser, 0, -10)
+#        CoordonneesLaser = canevas.coords(Laser)
+#        Impact = canevas.find_overlapping(x1,y1,x2,y2)
+#        if Impact == CoordonneesLaser:
+#            canevas.delete(Laser)
+#            canevas.delete(Ilots)
+#            canevas.delete(alien)
         fenetre.after(50,Tir,PosX,Laser,PosBas,canevas,fenetre)
+        
+""" Définition du tir des aliens """
+#def CreationTirAlien(alien,canevas,TirAlien,X,Y,fenetre):
+#   TirAlien.append(canevas.create_rectangle(X,Y,X+10,Y+25, fill = 'purple', 
+#                                            stroke = None))
+#    fenetre.after(1000,CreationTirAlien)
+      
+
+        
+""" Création de l'ennemi bonus """
+#def CreationEnnemiBonus (EnnemiBonus,canevas):
+#    canevas.move(EnnemiBonus,-10,0)
+#    canevas.after(50,CreationEnnemiBonus)
+
+""" Définition du Jeu """
+#def Jeu(x,y):
+#    Vies = 3
+#    y.set("Nombre de vies : "+str(Vies))
+#    Score = 0
+#    x.set("Score : "+str(Score))
+
+""" Définition de l'a propos """
+def Apropos():
+    messagebox.showinfo("A propos", "Jeu du Space Invader par Alexandre DREVET."
+                        " Ce jeu est sorti en 1978 et consiste à tirer sur des" 
+                        " aliens sans se faire toucher par leurs tirs.")
+
+
+  
