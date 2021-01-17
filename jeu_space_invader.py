@@ -13,7 +13,7 @@ Qui l'a fait : Alexandre Drevet
 
 Quand a-t-il été réalisé : 17/12/2020 - 17/01/2021
 
-Que reste-t-il à faire : Voir README.txt
+Que reste-t-il à faire : Voir README.md
 
 Lien github : https://github.com/adrevet/TP3-CS-DEV-SPACE-INVADERS.git
 """
@@ -49,7 +49,8 @@ score = Label(fenetre, textvariable = x, fg = 'black', bg = 'white')
 
 """ Affichage du nombre de vies """
 y = StringVar
-#y.set("Nombre de vies : "+str(vies)) #Créer une fonction qui calcule le nombre de vie
+#y.set("Nombre de vies : "+str(vies)) #Créer une fonction qui calcule le 
+#nombre de vie
 vies = Label(fenetre,textvariable = y, fg = 'black', bg = 'white')
 
 
@@ -76,7 +77,6 @@ fenetre.config(menu = menubar)
 
 
 """ Création alien : """
-#Alien = None
 alien = []
 TirAlien = []
 X = LARGEUR/2 #position intiale de l'alien
@@ -97,9 +97,11 @@ for i in range (0,9):
 PosX = 500 #position intiale du vaisseau
 PosY = 550 #position intiale du vaisseau
 Vaisseau = PhotoImage (file = 'vaisseau.gif')
-vaisseau = canevas.create_image(PosX-10, PosY-10, image = Vaisseau) #on créé le vaisseau
+#on créé le vaisseau
+vaisseau = canevas.create_image(PosX-10, PosY-10, image = Vaisseau) 
 canevas.focus_set()
-canevas.bind('<Key>',lambda event:Clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre))
+canevas.bind('<Key>',lambda event:Clavier(event,PosX,canevas,vaisseau,
+                                          PosY,PosBas,fenetre))
 
 """ Création Ilots """
 Ilots = []
@@ -117,6 +119,5 @@ for i in range (0,3):
 
 """ Image du laser """
 lambda:Laser(DX,PosY,canevas,PosX,PosBas,fenetre)
-
 
 fenetre.mainloop()

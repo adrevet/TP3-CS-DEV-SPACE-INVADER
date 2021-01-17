@@ -6,6 +6,7 @@ Date: 17/12/2020
 """
 from tkinter import PhotoImage, messagebox
 
+#Cette fonction permet de créer les différents aliens
 """ Création des aliens """
 DX_POS = 2
 DX_NEG = -2
@@ -24,8 +25,9 @@ def CreationAliens(X,Y,LARGEUR,r,canevas,alien,fenetre):
 #    CreationTirAlien(alien,canevas,TirAlien,X,Y,fenetre)
     return alien
 
-
-""" Fonction qui décrit le deplacement de l'alien en horizontal : """
+#Cette fonction décrit le déplacement de l'alien que ce soit horizontalement 
+#ou verticalement
+""" Déplacement de l'alien """
 def deplacement(X,Y,LARGEUR,r,canevas,alien,fenetre):
     global DX_GLOB, DX_NEG, DX_POS, DY_POS, DY_NEG, DY_GLOB
     if X+r+DX_GLOB > LARGEUR: #rebond à droite
@@ -45,24 +47,26 @@ def deplacement(X,Y,LARGEUR,r,canevas,alien,fenetre):
     canevas.coords(alien, X-r, Y-r)
     fenetre.after(30,lambda:deplacement(X,Y,LARGEUR,r,canevas,alien,fenetre))
 
+#Cette fonction permet de créer les différents îlots
 """ Création des ilots """
 def CreationIlots (X,Y,Largeur,Hauteur,canevas):
     Ilots = canevas.create_rectangle(X+Largeur, Y+Largeur, X-Largeur, Y-Hauteur,
                                      width = 0, fill = "grey")
     return Ilots
 
+#Cette fonction permet de gérer les différents appuis sur une touche du clavier
 """ Gestion de l'évènement Appui sur une touche du clavier """    
 def Clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre):
     touche = event.keysym
 #    print(touche)
     DX = 0
     (x1, y1, x2, y2) = canevas.bbox(vaisseau)
-    if touche == "Right" and x2 == 991:
+    if touche == "Right" and x2 == 995:
         DX = 0
     elif touche == "Right": #déplacement à droite
         DX = 10
     
-    if touche == "Left" and x1 == 9:
+    if touche == "Left" and x1 == 5:
         DX = 0
     elif touche == "Left": #déplacement à gauche
         DX = -10   
@@ -70,7 +74,7 @@ def Clavier(event,PosX,canevas,vaisseau,PosY,PosBas,fenetre):
         Laser(x1,y1,canevas,PosX,PosBas,fenetre)
     canevas.move(vaisseau, DX, 0)
     
-
+#Cette fonction permet de créer le laser du vaisseau
 """ Définition du laser """
 def Laser(DX,PosY,canevas,PosX,PosBas,fenetre):
     x = DX
@@ -78,7 +82,8 @@ def Laser(DX,PosY,canevas,PosX,PosBas,fenetre):
     Laser = canevas.create_rectangle(x-3, y, x+3, y-5, fill = 'yellow', 
                                      stroke = None)
     Tir(PosX,Laser,PosBas,canevas,fenetre)
-  
+
+#Cette fonction est appelée pour le tir du laser du vaisseau 
 """ Définition du tir """
 def Tir(PosX,Laser,PosBas,canevas,fenetre):
     canevas.unbind('space')
@@ -105,11 +110,11 @@ def Tir(PosX,Laser,PosBas,canevas,fenetre):
 
         
 """ Création de l'ennemi bonus """
-#def CreationEnnemiBonus (EnnemiBonus,canevas):
+#def CreationEnnemiBonus (EnnemiBonus,canevas,fenetre):
 #    canevas.move(EnnemiBonus,-10,0)
-#    canevas.after(50,CreationEnnemiBonus)
+#    fenetre.after(50,CreationEnnemiBonus)
 
-""" Définition du Jeu """
+""" Définition du Jeu """ #La fonction n'est pas terminée
 #def Jeu(x,y):
 #    Vies = 3
 #    y.set("Nombre de vies : "+str(Vies))
