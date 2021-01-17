@@ -13,12 +13,7 @@ Qui l'a fait : Alexandre Drevet
 
 Quand a-t-il été réalisé : 17/12/2020 - 17/01/2021
 
-Que reste-t-il à faire : Faire une fonction rejouer, faire une fonction qui
-fait disparaître les deux objets (laser et alien ou laser et ilots) lorsqu'ils
-entrent en colision, faire un EnnemiBonus, permettre aux aliens de tirer en 
-direction du vaisseau
-Je pourrais également amélioré l'interface du jeu et le rendre plus complet 
-avec plus de temps
+Que reste-t-il à faire : Voir README.txt
 
 Lien github : https://github.com/adrevet/TP3-CS-DEV-SPACE-INVADERS.git
 """
@@ -69,8 +64,8 @@ vies.grid(row = 1, column = 1, sticky = "e")
 menubar = Menu(fenetre)
 menuoption = Menu(menubar, tearoff = 0)
 menuapropos = Menu(menubar, tearoff = 1)
-menuoption.add_command(label = "Rejouer", command = fenetre.destroy) #faire une fct rejouer
-menuoption.add_command(label = "Quitter", command = fenetre.destroy) # boutton pour arreter de jouer 
+menuoption.add_command(label = "Rejouer", command = fenetre.destroy) 
+menuoption.add_command(label = "Quitter", command = fenetre.destroy)  
 menubar.add_cascade(label = "Option", menu = menuoption)
 menubar.add_cascade(label = "Aide", menu = menuapropos)
 menuapropos.add_command(label = "A propos", command = Apropos)

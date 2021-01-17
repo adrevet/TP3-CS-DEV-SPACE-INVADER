@@ -13,11 +13,13 @@ DX_GLOB = DX_POS
 DY_POS = 0.01
 DY_NEG = 0
 DY_GLOB = DY_POS
+list_images_alien = []
 def CreationAliens(X,Y,LARGEUR,r,canevas,alien,fenetre):
-#    global Alien
-#    Alien = PhotoImage (file = 'alien.gif')
-    alien = canevas.create_rectangle(X-r, Y-r, X+r, Y+r, width = 0, 
-                                     fill = 'red') #on crée l'alien
+    global Alien
+    Alien = PhotoImage (file = 'alien.gif')
+    new_img = Alien.copy()
+    list_images_alien.append(new_img)
+    alien = canevas.create_image(X-r, Y-r, image = new_img) #on crée l'alien
     deplacement(X,Y,LARGEUR,r,canevas,alien,fenetre) 
 #    CreationTirAlien(alien,canevas,TirAlien,X,Y,fenetre)
     return alien
@@ -40,7 +42,7 @@ def deplacement(X,Y,LARGEUR,r,canevas,alien,fenetre):
     Y = Y + DY_GLOB
     
     
-    canevas.coords(alien, X-r, Y-r, X+r, Y+r)
+    canevas.coords(alien, X-r, Y-r)
     fenetre.after(30,lambda:deplacement(X,Y,LARGEUR,r,canevas,alien,fenetre))
 
 """ Création des ilots """
